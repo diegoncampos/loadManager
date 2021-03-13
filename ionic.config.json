@@ -1,0 +1,7 @@
+{
+  "name": "loadManager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
