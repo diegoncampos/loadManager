@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Load Manager
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -13,8 +13,118 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="app">
+    <div class="watch">
+      <p class="time">{{time | date:'HH:mm:ss'}}</p>
+      <p class="date">{{time | date:'d.M.yy'}}</p>
+    </div>
+    <!-- <div class="presses">
+      <div class="press" id="press1">
+        <h3><b>{{data.presses[0].name}}</b></h3>
+        <ion-item lines="none">
+          <ion-label position="floating">Max Tons</ion-label>
+          <ion-input type="number" [(ngModel)]="data.presses[0].maxTons" readonly></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Loaded Tons:</ion-label>
+          <ion-input type="number" [(ngModel)]="data.presses[0].loadedTons"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">Space Left</ion-label>
+          <ion-input type="number" value="{{data.presses[0].maxTons - data.presses[0].loadedTons}}" readonly></ion-input>
+        </ion-item>
+      </div>
+      <div class="press" id="press2">
+        {{data.presses[1].name}}
+      </div>
+      <div class="press" id="press3">
+        {{data.presses[2].name}}
+      </div>
+      <div class="press" id="press4">
+        {{data.presses[3].name}}
+      </div>
+      <div class="press" id="press5">
+        {{data.presses[4].name}}
+      </div>
+      <div class="press" id="press6">
+        {{data.presses[5].name}}
+      </div>
+    </div> -->
+    <!-- <div class="presses" *ngFor="let press of data.presses" fxLayout="row" fxLayoutGap="33%">
+      <div class="press">
+        {{press.name}}
+      </div>
+    </div> -->
+    <ion-row>
+      <ion-col size="4" class="presses" *ngFor="let press of data.presses">
+        <ion-card>
+          <ion-card-content>
+            <!-- <h2><b>{{press.name}}</b></h2> -->
+            <ion-item lines="none">
+              <h2><b>{{press.name}}</b></h2>
+              <ion-button slot="end" fill="clear" color="danger" (click)="cleanPress(press)">
+                <ion-icon slot="icon-only" name="refresh"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Max Tons</ion-label>
+              <ion-input type="number" [(ngModel)]="press.maxTons" readonly></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Loaded Tons:</ion-label>
+              <ion-input type="number" [(ngModel)]="press.loadedTons" readonly></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Space Left</ion-label>
+              <ion-input [ngStyle]="{color: press.maxTons - press.loadedTons < 0? 'red' : '' }" type="number" value="{{press.maxTons - press.loadedTons}}" readonly></ion-input>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- <div class="bins">
+      <div class="bin" id="binA">
+        <h3><b>{{data.bins[0].name}}</b></h3>
+        Sending To Press: {{data.bins[0].sendingTo}}
+      </div>
+      <div class="bin" id="binB">
+        {{data.bins[1].name}}
+      </div>
+    </div> -->
+    <ion-row>
+      <ion-col size="6" class="bins" *ngFor="let bin of data.bins">
+        <ion-card>
+          <ion-card-content>
+            <!-- <h2><b>{{bin.name}}</b></h2> -->
+            <ion-item lines="none">
+              <h2><b>{{bin.name}}</b></h2>
+              <ion-button slot="end" fill="clear" color="danger" (click)="cleanBin(bin)">
+                <ion-icon slot="icon-only" name="refresh"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Total Tons Receibed</ion-label>
+              <ion-input type="number" [(ngModel)]="bin.tons" (ngModelChange)="dataChanged(bin)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Sending To</ion-label>
+              <ion-select [(ngModel)]="bin.sendingTo" [placeholder]="" (ngModelChange)="dataChanged(bin)">
+                <ion-select-option *ngFor="let press of data.presses" [value]="press">{{press.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Send</ion-label>
+              <ion-input type="number" [(ngModel)]="bin.send" (ngModelChange)="dataChanged(bin)"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="floating">Tons Left</ion-label>
+              <ion-input type="number" [(ngModel)]="bin.tonsLeft" readonly></ion-input>
+            </ion-item>
+            <ion-button *ngIf="!bin.canLoad" [disabled]="!bin.tons || !bin.send || bin.sendingTo == ''" expand="block" color="primary" (click)="check(bin)">Check</ion-button>
+            <ion-button *ngIf="bin.canLoad" [disabled]="!bin.tons || !bin.send || bin.sendingTo == ''" expand="block" color="success" (click)="load(bin)">Load</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>

@@ -25,3 +25,61 @@
 #container a {
   text-decoration: none;
 }
+
+.app {
+  background-color: darkgrey;
+  // height: 100%;
+}
+
+.watch {
+  border-style: solid;
+  border-color: black;
+  text-align: center;
+  background-color: black;
+  color: aliceblue;
+  font-weight: bold;
+  .date {
+    font-size: 2em;
+    margin: 0 0 5px 0;
+  }
+  .time {
+  font-size: 7em;
+  margin: 30px 0 25px 0;
+  }
+}
+
+.presses {
+  width: 100%;
+  ion-item  h2 {
+    font-size: 1.4em;
+  }
+
+  .press {
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+
+  align-self: center;
+  padding-left: 20px;
+  }
+}
+
+.bins {
+  display: flex;
+  justify-content: center;
+
+  ion-card {
+    background-color: rgb(179, 179, 179);
+    width: 40vw;
+  }
+
+  .bin{
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+
+    flex-grow: 3;
+    // text-align: center;
+    height: 150px;
+  }
+}
